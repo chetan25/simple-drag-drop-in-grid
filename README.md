@@ -1,4 +1,12 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Simple Drag and Drop Implementation with Grid and React Component
+
+- I have created a simple react app, to try out drag and drop in grid layout. Have used HTML drag and drop endpoints to implement it.
+- What can be done:
+  - We can swap elements within the grid.
+  - We can drag and drop elements within the grid.
+  - We can drag(only draggable elements) from outside the grid and drop it in exact column and row inside the grid.
+
+**_ The code is not written to be optimized or production ready. It's just a POC _**
 
 ## Getting Started
 
@@ -10,25 +18,34 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## What's Happening
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- We created a base grid element, which serves as our main dropping zone.
+- We divided it into columns nd rows.
+- Calculated the start/end for each row and column in the rows and columns object.
+- Now we rendered the slots(elements) inside the grid and made them each a draggable and droppable zone.
+- Making the slots droppable, helps us ion swapping them and draggable is used to make them drag.
+- We also created an element outside the grid and made it draggable, so that we can drag it inside the grid.
+- We have created the styles of the element as an object to help us modify them later
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```js
+   styles: {
+      gridColumnStart: 3,
+      gridColumnEnd: 7,
+      gridRowStart: 1,
+      gridRowEnd: 3,
+      height: "150px",
+      display: "flex",
+    },
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Then we have define the children as a function, just to be bit flexible if we needed to pass anything to it. This could just be a reference to a Component.
+  ```js
+    children: () => {
+      return (
+        <div style={{ width: "100%", height: "100%" }}>
+          <img alt="dummy logo" src="/dummy.png" className={styles.img} />
+        </div>
+      );
+    },
+  ```
