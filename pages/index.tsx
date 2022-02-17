@@ -252,8 +252,8 @@ const SlotsGroup = ({
 
     Object.keys(columns).map((key) => {
       if (
-        event.screenX >= columns[key]["left"] &&
-        event.screenX < columns[key]["right"] + 8
+        event.pageX >= columns[key]["left"] &&
+        event.pageX < columns[key]["right"] + 8
       ) {
         column.start = Number(key);
         column.end = Number(key) + 1;
